@@ -1,0 +1,14 @@
+
+{% extends 'base/principal.html'   %}
+{% block content %}
+<h1>INGRESAR</h1>
+<form METHOD="post">
+
+ {% csrf_token %}
+    {{form.as_p}}
+
+    <input type="submit" value="INGRESAR" class=" miboton">
+</form>
+
+<p>no tienes una cuenta? <a HREF="{% url 'registro'  %}">REGÍSTRATE</a></p>
+   {% endblock content %}

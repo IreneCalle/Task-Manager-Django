@@ -1,0 +1,89 @@
+{% extends 'base/principal.html'   %}
+
+
+   {% block content %}
+
+
+<div class="barra-superior">
+    <div>
+
+        <h1>¡Hola, {{request.user|title}}! Bienvenido :) </h1>
+        <h3 style="margin:0"> Tienes {{count}} tarea{{count|pluralize}} por completar. </h3>
+        <h3 style="margin:0"> Pulsa una tarea para explorar o editar detalles. </h3>
+
+    </div>
+{% if request.user.is_authenticated  %}
+
+
+<form method="post" action="{% url 'logout' %}">
+
+    {% csrf_token %}
+    <input type="submit" value="SALIR"  class="boton-salida">
+</form>
+
+
+
+{% else %}
+<a href="{% url 'login' %}" class="miboton">INGRESAR</a>
+
+
+{% endif %}
+
+
+</div>
+<hr>
+
+
+<h1>Lista de tareas pendientes</h1>
+
+<div class="envoltorio-items-tarea">
+    {% for tarea in tareas%}
+
+    <div class="envoltorio-tarea">
+
+        {% if tarea.completo %}
+        <div class="titulo-tarea">
+
+            <div class="icono-completa">
+                <i><s><a href="{% url 'editar-tarea' tarea.id %}"> &nbsp &nbsp &nbsp  {{tarea}} </a></s></i>
+
+            </div>
+        </div>
+        <a class="enlace-eliminar" href="{% url 'borrar-tarea' tarea.id  %}">&#x2718;</a>
+
+        {% else %}
+        <div class="titulo-tarea">
+
+            <div class="icono-incompleta">
+                <a href="{% url 'editar-tarea' tarea.id %}" > &nbsp &nbsp &nbsp{{tarea}} </a>
+            </div>
+        </div>
+        <a class="enlace-eliminar" href="{% url 'borrar-tarea' tarea.id  %}">&#x2718;</a>
+
+        {% endif%}
+
+    </div>
+    {% empty %}
+    <h3> No hay elementos en esta lista</h3>
+    {% endfor %}
+<br>
+
+    <div id="envoltorio-agragar-buscar">    <form method="GET">
+
+ <input type="text" name="area-buscar" value="{{valor_buscado}}" class="otro" style="margin-top: 20px; display: flex">
+
+    <br>
+
+    <input type="submit" value="Buscar" class="miboton">
+</form>
+    <br>
+    <br>
+    <a href="{% url 'crear-tarea' %}" id="mi-boton-crear"> &#x1F7A5 CREAR NUEVA TAREA</a>
+
+    </div>
+
+
+
+</div>
+
+   {% endblock content %}

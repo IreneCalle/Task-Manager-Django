@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de tareas pendientes</title>
+    <!-- Preconexión a Google Fonts para mejorar la carga de las fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Enlace a las fuentes personalizadas desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@700&family=Dosis:wght@200..800&family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        body {
+            background-color: #EFF1E2; /* Color de fondo del cuerpo de la página */
+            font-family: "Dosis", sans-serif; /* Fuente personalizada para el cuerpo */
+            font-optical-sizing: auto;
+            font-weight: normal;
+            font-style: normal;
+            padding-top: 60px; /* Espacio superior en el cuerpo */
+        }
+
+        .container {
+            max-width: 550px; /* Ancho máximo del contenedor */
+            margin: auto; /* Centrar el contenedor horizontalmente */
+            background-color: #F4FDC0; /* Color de fondo del contenedor */
+            box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21); /* Sombra del contenedor */
+            padding: 20px; /* Margen interno del contenedor */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Mukta", sans-serif; /* Fuente personalizada para los encabezados */
+            font-weight: 400; /* Peso de la fuente para los encabezados */
+            font-style: normal; /* Estilo de la fuente para los encabezados */
+        }
+
+        a, p {
+            color: #7B755B; /* Color de texto para enlaces y párrafos */
+        }
+
+        .barra-superior {
+            display: flex;
+            justify-content: space-between;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(90deg, #FDC830 0%, #FBB034 100%); /* Degradado de amarillo oscuro a más oscuro */
+        }
+
+        hr {
+            border: none; /* Quita cualquier borde predeterminado */
+            height: 1px; /* Altura de la línea */
+            background-color: #7C796D;
+        }
+
+        .boton-salida {
+            background-color: #D7DCB4;
+            color: #89712E;
+            border: 2px solid #FBB034; /* Borde naranja */
+            border-radius: 13px; /* Bordes redondeados */
+            padding: 10px 10px; /* Espaciado interno del botón */
+            font-weight: bold; /* Texto en negrita */
+            cursor: pointer; /* Cambia el cursor a una mano apuntando */
+            transition: background-color 0.7s ease, color 0.3s ease; /* Transición suave para el fondo y el color del texto */
+        }
+
+        .boton-salida:hover {
+            background-color: #FBB034; /* Fondo naranja oscuro al pasar el ratón */
+            color: #ffffff; /* Texto blanco al pasar el ratón */
+        }
+
+        .miboton {
+            background-color: #F4FDC0; /* Fondo de color #F4FDC0 */
+            color: #4F4F4F; /* Texto en gris oscuro */
+            border: 1px solid #4F4F4F; /* Borde gris oscuro de 2 píxeles */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px 20px; /* Espaciado interno */
+            font-weight: bold; /* Texto en negrita */
+            cursor: pointer; /* Cambia el cursor a una mano apuntando */
+            transition: background-color 0.3s ease; /* Transición suave para el fondo */
+            gap: 10px;
+        }
+
+        .miboton:hover {
+            background-color: #E8F3A6; /* Fondo ligeramente más claro al hacer hover */
+        }
+
+        .envoltorio-tarea {
+             display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #f4fdc9; /* Corrección del símbolo '=' */
+    border-top: 1px solid #f4fdd0;
+        }
+
+     .titulo-tarea {
+    flex-grow: 1; /* Permite que el título ocupe el espacio disponible */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el desbordamiento */
+    text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto si es muy largo */
+    color: #4F4F4F; /* Color gris oscuro */
+    cursor: pointer; /* Cambia el cursor a una mano apuntando para indicar que es clicable */
+    transition: color 0.3s ease; /* Transición suave para el color */
+}
+
+.volver-container {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    margin-top: 20px; /* Añade espacio superior para evitar solapamiento */
+}
+
+.titulo-tarea:hover {
+    color: #1E1E1E; /* Color más oscuro al pasar el cursor */
+}
+
+
+
+
+
+        .titulo-tarea a {
+            text-decoration: none;
+            color: #4F4F4F; /* Cambiado a gris oscuro */
+            margin-left: 10px;
+        }
+
+        .icono-completa {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(105, 162, 105);
+            border-radius: 50px;
+            margin-right: 50px; /* Espacio a la derecha del icono */
+        }
+
+        .icono-incompleta {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(218, 218, 218);
+            border-radius: 50px;
+            margin-right: 10px; /* Espacio a la derecha del icono */
+        }
+
+        .boton-derecha {
+            display: flex;
+            justify-content: flex-end; /* Cambiar a center o flex-start según lo necesitado */
+            margin-bottom: 20px; /* Añade un margen inferior si es necesario */
+        }
+
+        .enlace-eliminar {
+            text-decoration: none;
+            font-weight: 900;
+            color: #EA4220;
+            font-size: 22px;
+            line-height: 0;
+        }
+
+        .formulario-registro {
+            background-color: #f4fdc0;
+            font-family: "Dosis", sans-serif; /* Fuente personalizada para el cuerpo */
+            font-optical-sizing: auto;
+            font-weight: normal;
+            font-style: normal;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos del formulario */
+            padding: 20px; /* Espaciado interno */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        /* Estilo global para todas las áreas de texto y campos de texto */
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="search"],
+        input[type="url"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"] {
+            background-color: #f4fdc0; /* Fondo de color #f4fdc0 */
+            font-family: "Dosis", sans-serif; /* Fuente personalizada para el cuerpo */
+            font-optical-sizing: auto;
+            font-weight: bold; /* Ajuste del peso de la fuente */
+            font-style: normal;
+            color: #4F4F4F; /* Color del texto gris oscuro */
+            border: 2px solid #4F4F4F; /* Borde gris oscuro de 2 píxeles */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            transition: background-color 0.3s ease; /* Transición suave para el fondo */
+            width: 100%; /* Ajusta el ancho al 100% del contenedor */
+            box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
+            gap: 10px;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus,
+        input[type="search"]:focus,
+        input[type="url"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="time"]:focus {
+            background-color: #e8f3a6; /* Fondo ligeramente más claro al hacer foco */
+            outline: none; /* Elimina el borde de enfoque predeterminado */
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
+        }
+
+
+        #mi-boton-crear{
+       background-color: #F4FDC0; /* Fondo de color #F4FDC0 */
+    color: #32892E;
+    border: 1px solid #4F4F4F; /* Borde gris oscuro de 2 píxeles */
+    border-radius: 10px;
+    padding: 10px 20px; /* Espaciado interno */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Cambia el cursor a una mano apuntando */
+    transition: background-color 0.3s ease; /* Transición suave para el fondo */
+    display: inline-block;
+    margin-left: auto; /* Mueve el botón a la derecha */
+    gap: 10px;
+}
+
+#mi-boton-crear:hover {
+    background-color: #E8F3A6; /* Fondo ligeramente más claro al hacer hover */
+    color: #1E5D1E; /* Cambia el color del texto en hover */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

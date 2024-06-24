@@ -1,0 +1,13 @@
+{% extends 'base/principal.html'   %}
+{% block content %}
+
+<a href="{% url 'tareas' %}"  class="miboton">VOLVER</a>
+<form method="post">
+    {% csrf_token %}
+    <p>¡Atención! Estas a punto de eliminar una tarea.
+        No podrás volver a consultarla ni editarla.
+        Vas a eliminar esta tarea: "{{tarea}}"</p>
+    <input type="submit" value="ELIMINAR" class="miboton">
+</form>
+
+   {% endblock content %}
